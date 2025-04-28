@@ -34,12 +34,9 @@ jobs:
         run: chmod +x gradlew
 
       - name: Compilação
-        run: ./gradlew clean build
+        run: ./gradlew build
         env:
           SPRING_PROFILES_ACTIVE: dev
-
-      - name: Run tests
-        run: ./gradlew test
 
       - name: Generate coverage report
         run: ./gradlew jacocoTestReport
