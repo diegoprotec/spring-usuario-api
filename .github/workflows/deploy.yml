@@ -30,22 +30,21 @@ jobs:
       - name: Prepara Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Clean Gradle Cache
-        run: ./gradlew clean --stacktrace
-
       - name: Compilação
         env:
           SPRING_PROFILES_ACTIVE: dev
-        run: ./gradlew build --stacktrace
+        run: ./gradlew build
 
-      - name: Upload build artifacts
+      - name: Prepara artefato de deploy
+        run: |
+          # Cria o arquivo ZIP com os arquivos necessários
+          zip -r ${{ env.EB_DEPLOYMENT_PACKAGE }} build Procfile deploy/
+
+      - name: Upload do artefato
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts
-          path: build/libs/*.jar
+          name: deploy
+          path: ${{ env.EB_DEPLOYMENT_PACKAGE }}
 
   deploy:
     needs: build
@@ -54,24 +53,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download build artifacts
+      - name: Download do artefato
         uses: actions/download-artifact@v4
         with:
-          name: build-artifacts
-          path: build/libs
+          name: deploy
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+      - name: Configura credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-
-      - name: Create deployment package
-        run: |
-          cd build/libs
-          zip -r ../../${{ env.EB_DEPLOYMENT_PACKAGE }} *.jar
-          cd ../..
 
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21

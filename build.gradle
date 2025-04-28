@@ -5,8 +5,8 @@ plugins {
     id 'jacoco'
 }
 
-group = 'com.santander'
-version = '0.0.1-SNAPSHOT'
+group = 'com.santander.springusuarioapi'
+version = '0.0.1'
 
 java {
     toolchain {
@@ -118,5 +118,9 @@ tasks.register('checkCoverage') {
     dependsOn jacocoTestCoverageVerification
 }
 
+bootJar {
+    version = ''
+    archiveClassifier = ''
+}
 
 
