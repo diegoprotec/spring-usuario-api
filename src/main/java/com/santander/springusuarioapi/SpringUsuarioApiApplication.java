@@ -1,4 +1,4 @@
-package com.santander.spring_usuario_api;
+package com.santander.springusuarioapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
