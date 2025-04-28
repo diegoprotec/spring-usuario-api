@@ -85,6 +85,33 @@ jobs:
           --application-name ${{ env.ELASTIC_BEANSTALK_NAME }}
           --environment-name ${{ env.ELASTIC_BEANSTALK_ENV_NAME }}
           --version-label ${{ env.VERSION_LABEL }}
+          --option-settings '[
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "DATASOURCE_HOST",
+              "Value": "#{aws-secrets:desafiodb-secret:host}"
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "DATASOURCE_PORT",
+              "Value": "#{aws-secrets:desafiodb-secret:port}"
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "DATASOURCE_SCHEME",
+              "Value": "#{aws-secrets:desafiodb-secret:dbInstanceIdentifier}"
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "DATASOURCE_USERNAME",
+              "Value": "#{aws-secrets:desafiodb-secret:username}"
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "DATASOURCE_PASSWORD",
+              "Value": "#{aws-secrets:desafiodb-secret:password}"
+            }
+          ]'
 
       - name: Aguardar a implantação
         run: >
