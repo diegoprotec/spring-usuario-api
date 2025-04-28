@@ -5,8 +5,9 @@ spring:
     url: jdbc:mysql://${DATASOURCE_HOST}:${DATASOURCE_PORT}/${DATASOURCE_SCHEME}?createDatabaseIfNotExist=true
     username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
