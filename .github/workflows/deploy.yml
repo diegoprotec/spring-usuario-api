@@ -34,7 +34,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Clean Gradle Cache
-        run: ./gradlew clean
+        run: ./gradlew clean --stacktrace
 
       - name: Compilação
         env:
