@@ -39,7 +39,7 @@ jobs:
       - name: Compilação
         env:
           SPRING_PROFILES_ACTIVE: dev
-        run: ./gradlew build
+        run: ./gradlew build --stacktrace
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
