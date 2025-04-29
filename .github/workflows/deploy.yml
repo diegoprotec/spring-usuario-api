@@ -40,7 +40,7 @@ jobs:
 
       - name: Lista o conteúdo deploy
         run: |
-          unzip -lq ${{ env.ARTIFACT_FILE }}
+          ls -1 ${{ env.ARTIFACT_FILE }}
 
       - name: Upload do artefato
         uses: actions/upload-artifact@v4
