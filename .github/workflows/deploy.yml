@@ -36,9 +36,10 @@ jobs:
 
       - name: Prepara artefato de deploy
         run: |
-          # Cria o arquivo ZIP com os arquivos necessários
-          zip -r ${{ env.ARTIFACT_FILE }} .ebextensions build Procfile
-          # Lista o conteúdo do ZIP para verificação
+          zip -rq ${{ env.ARTIFACT_FILE }} .ebextensions build Procfile
+
+      - name: Lista o conteúdo deploy
+        run: |
           unzip -l ${{ env.ARTIFACT_FILE }}
 
       - name: Upload do artefato
